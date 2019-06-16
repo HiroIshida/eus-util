@@ -23,11 +23,13 @@
     (s+ "[" left right "]")))
 
 (defun convert (element)
-  (unless (listp element) 
-    (setq element (list element)));; convert to list so that  
-  (if (alistp element)
-      (alist->json element)
-      (list->json element)))
+  (if (listp element)
+      (if (dotp element) 
+          (dot-json element)
+          (if (alistp element)
+              (alist->json element)
+              (list->json element)))
+      (tweak element)))
 
 (defun dot->json (dot)
   (let ((key (car dot))(val (cdr dot)))
