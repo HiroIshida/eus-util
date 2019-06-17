@@ -10,6 +10,7 @@
 (defmethod JsonPlotter
   (:init ()
    (setq idx 0)
+
    (setq data-pair-lst nil)
    self)
 
@@ -22,7 +23,7 @@
 
   (:dump ()
    (let* ((json-data-dump (cons "data" data-pair-lst))
-         (string-data-dump (ijson:parse-json json-data-dump)))
+         (string-data-dump (ijson:encode-json json-data-dump)))
      (ijson:save-string string-data-dump)))
 
   (:plot (x-lst y-lst)
@@ -50,22 +51,12 @@
   (:add-plot (data)
    (push (cons (make-symbol (string idx)) data) data-pair-lst)
    (setq idx (+ idx 1)))
+
+  (:clear ()
+   (setq data-pair-lst nil))
+
   ;; end methods
   )
-
-;; test
-(defun rgen (N)
-  (let ((lst nil))
-    (dotimes (i N lst)
-      (push (aref (user::gaussian-random 1) 0) lst))))
-(setq jp (instance JsonPlotter :init))
-(setq N 1000)
-(setq data (list (rgen N) (rgen N) (rgen N)))
-;(send jp :scatter3 (rgen N) (rgen N) (rgen N))
-;(send jp :show)
-
-
-(provide :ishida-plot)
 
   
 
