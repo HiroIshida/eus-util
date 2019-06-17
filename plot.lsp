@@ -10,6 +10,10 @@
    (setq data-pair-lst nil)
    self)
 
+  (:show ()
+   (send self :dump)
+   (unix:system "python3 plotter.py"))
+
   (:dump ()
    (let* ((json-data-dump (cons "data" data-pair-lst))
          (string-data-dump (parse-json json-data-dump)))
@@ -30,10 +34,16 @@
   ;; end methods
   )
 
+;; test
+(defun rgen (N)
+  (let ((lst nil))
+    (dotimes (i N lst)
+      (push (aref (gaussian-random 1) 0) lst))))
 (setq jp (instance JsonPlotter :init))
-(send jp :scatter '(1 2 3) '(4 5 6))
-(send jp :scatter '(1 2 3) '(4 5 6))
-(setq data (send jp :dump))
+(setq a (rgen 10))
+(setq b (rgen 10))
+(send jp :scatter a b)
+(send jp :show)
 
 
 
