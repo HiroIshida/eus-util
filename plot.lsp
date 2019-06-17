@@ -19,7 +19,12 @@
          (string-data-dump (parse-json json-data-dump)))
      (save-string string-data-dump)))
 
-
+  (:plot (x-lst y-lst)
+   (let ((data
+           (list (cons :pltstyle "plot")
+                 (cons :x x-lst)
+                 (cons :y y-lst))))
+     (send self :add-plot data)))
 
   (:scatter (x-lst y-lst)
    (let ((data
@@ -40,9 +45,7 @@
     (dotimes (i N lst)
       (push (aref (gaussian-random 1) 0) lst))))
 (setq jp (instance JsonPlotter :init))
-(setq a (rgen 10))
-(setq b (rgen 10))
-(send jp :scatter a b)
+(send jp :scatter (rgen 1000) (rgen 1000))
 (send jp :show)
 
 

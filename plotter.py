@@ -11,11 +11,18 @@ def jsonplot(magachunk):
     plot_style = chunk["PLTSTYLE"]
     if plot_style == "scatter":
         scatter(chunk)
+    if plot_style == "plot":
+        plot(chunk)
 
 def scatter(chunk):
-    x = np.array(chunk['X'])
-    y = np.array(chunk['Y'])
+    x = np.array(list(map(lambda s: float(s), chunk['X'])))
+    y = np.array(list(map(lambda s: float(s), chunk['Y'])))
     plt.scatter(x, y)
+
+def plot(chunk):
+    x = np.array(list(map(lambda s: float(s), chunk['X'])))
+    y = np.array(list(map(lambda s: float(s), chunk['Y'])))
+    plt.plot(x, y)
 
 if __name__=='__main__':
     filename = "tmp.json"
