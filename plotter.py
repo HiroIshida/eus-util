@@ -9,7 +9,7 @@ from mpl_toolkits.mplot3d import Axes3D
 
 def jsonplot(magachunk):
     chunk = megachunk['data']['0']
-    plot_style = chunk["PLTSTYLE"]
+    plot_style = chunk["PLOTTYPE"]
     if plot_style == "scatter":
         scatter(chunk)
     if plot_style == "scatter3":

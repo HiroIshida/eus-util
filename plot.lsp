@@ -1,4 +1,4 @@
-(load "json.lisp")
+(load "json.lsp")
 
 (defclass JsonPlotter 
   :super propertied-object
@@ -12,30 +12,33 @@
 
   (:show ()
    (send self :dump)
-   (unix:system "python3 plotter.py"))
+   (let* ((dir (unix:getwd))
+          (pyfile (concatenate string (unix:getwd) "/plotter.py"))
+          (shell-command (concatenate string "python3 " pyfile)))
+     (unix:system shell-command)))
 
   (:dump ()
    (let* ((json-data-dump (cons "data" data-pair-lst))
-         (string-data-dump (parse-json json-data-dump)))
-     (save-string string-data-dump)))
+         (string-data-dump (ishida-json:parse-json json-data-dump)))
+     (ishida-json:save-string string-data-dump)))
 
   (:plot (x-lst y-lst)
    (let ((data
-           (list (cons :pltstyle "plot")
+           (list (cons :plottype "plot")
                  (cons :x x-lst)
                  (cons :y y-lst))))
      (send self :add-plot data)))
 
   (:scatter (x-lst y-lst)
    (let ((data
-           (list (cons :pltstyle "scatter")
+           (list (cons :plottype "scatter")
                  (cons :x x-lst)
                  (cons :y y-lst))))
      (send self :add-plot data)))
 
   (:scatter3 (x-lst y-lst z-lst)
    (let ((data
-           (list (cons :pltstyle "scatter3")
+           (list (cons :plottype "scatter3")
                  (cons :x x-lst)
                  (cons :y y-lst)
                  (cons :z z-lst))))
@@ -54,6 +57,7 @@
       (push (aref (gaussian-random 1) 0) lst))))
 (setq jp (instance JsonPlotter :init))
 (setq N 1000)
+(setq data (list (rgen N) (rgen N) (rgen N)))
 (send jp :scatter3 (rgen N) (rgen N) (rgen N))
 (send jp :show)
 

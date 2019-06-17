@@ -1,3 +1,8 @@
+(unless (find-package 'ishida-json) (make-package 'ishida-json))
+(in-package 'ishida-json)
+(export 'save-string)
+(export 'parse-json)
+
 (defun dotp (something)
   (symbolp (car something)))
 
