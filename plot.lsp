@@ -33,6 +33,14 @@
                  (cons :y y-lst))))
      (send self :add-plot data)))
 
+  (:scatter3 (x-lst y-lst z-lst)
+   (let ((data
+           (list (cons :pltstyle "scatter3")
+                 (cons :x x-lst)
+                 (cons :y y-lst)
+                 (cons :z z-lst))))
+     (send self :add-plot data)))
+
   (:add-plot (data)
    (push (cons (make-symbol (string idx)) data) data-pair-lst)
    (setq idx (+ idx 1)))
@@ -45,7 +53,8 @@
     (dotimes (i N lst)
       (push (aref (gaussian-random 1) 0) lst))))
 (setq jp (instance JsonPlotter :init))
-(send jp :scatter (rgen 1000) (rgen 1000))
+(setq N 1000)
+(send jp :scatter3 (rgen N) (rgen N) (rgen N))
 (send jp :show)
 
 

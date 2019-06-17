@@ -4,6 +4,7 @@ import json
 from numpy import mat, ndarray
 import numpy as np
 import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 #heck = lambda x: np.array(x).flatten()
 
 def jsonplot(magachunk):
@@ -11,6 +12,8 @@ def jsonplot(magachunk):
     plot_style = chunk["PLTSTYLE"]
     if plot_style == "scatter":
         scatter(chunk)
+    if plot_style == "scatter3":
+        scatter3(chunk)
     if plot_style == "plot":
         plot(chunk)
 
@@ -18,6 +21,14 @@ def scatter(chunk):
     x = np.array(list(map(lambda s: float(s), chunk['X'])))
     y = np.array(list(map(lambda s: float(s), chunk['Y'])))
     plt.scatter(x, y)
+
+def scatter3(chunk):
+    x = np.array(list(map(lambda s: float(s), chunk['X'])))
+    y = np.array(list(map(lambda s: float(s), chunk['Y'])))
+    z = np.array(list(map(lambda s: float(s), chunk['Z'])))
+    fig = plt.figure()
+    ax = Axes3D(fig)
+    ax.scatter(x, y, z)
 
 def plot(chunk):
     x = np.array(list(map(lambda s: float(s), chunk['X'])))
