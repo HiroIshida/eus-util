@@ -3,7 +3,7 @@
 (in-package "IJSON")
 ;(in-package "ishida-json")
 (export 'save-string)
-(export 'parse-json)
+(export 'encode-json)
 
 (defun dotp (something)
   (symbolp (car something)))
@@ -47,7 +47,7 @@
         (right-pairs (slist+ (mapcar #'(lambda (pair) (s+ ", " (dot->json pair)) ) (cdr alist)))))
     (s+ "{" left-pair right-pairs "}")))
 
-(defun parse-json (data);; note that outer { } has alyways single dotted pair
+(defun encode-json (data);; note that outer { } has alyways single dotted pair
   (s+ "{" (dot->json data) "}"))
 
 (defun save-string (str &optional (filename "tmp.json"))

@@ -20,20 +20,26 @@ def jsonplot(magachunk):
 def scatter(chunk):
     x = np.array(list(map(lambda s: float(s), chunk['X'])))
     y = np.array(list(map(lambda s: float(s), chunk['Y'])))
+    marker = chunk['MARKER']
+    color = chunk['COLOR']
     plt.scatter(x, y)
 
 def scatter3(chunk):
     x = np.array(list(map(lambda s: float(s), chunk['X'])))
     y = np.array(list(map(lambda s: float(s), chunk['Y'])))
     z = np.array(list(map(lambda s: float(s), chunk['Z'])))
+    marker = chunk['MARKER']
+    color = chunk['COLOR']
     fig = plt.figure()
     ax = Axes3D(fig)
-    ax.scatter(x, y, z)
+    ax.scatter(x, y, z, marker = marker, color = color)
 
 def plot(chunk):
     x = np.array(list(map(lambda s: float(s), chunk['X'])))
     y = np.array(list(map(lambda s: float(s), chunk['Y'])))
-    plt.plot(x, y)
+    marker = chunk['MARKER']
+    color = chunk['COLOR']
+    plt.plot(x, y, marker = marker, color = color)
 
 if __name__=='__main__':
     filename = "tmp.json"

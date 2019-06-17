@@ -1,4 +1,5 @@
 (load "plot.lsp")
+(in-package "USER")
 
 (defun rgen (N)
   (let ((lst nil))
@@ -6,6 +7,6 @@
       (push (aref (user::gaussian-random 1) 0) lst))))
 
 (setq plotter (instance iplot:JsonPlotter :init))
-(setq N 100)
-(send plotter :scatter3 (rgen N) (rgen N) (rgen N))
+(setq N 1000)
+(send plotter :scatter3 (rgen N) (rgen N) (rgen N) :marker "+" :color "b")
 (send plotter :show)

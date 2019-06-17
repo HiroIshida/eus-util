@@ -10,7 +10,6 @@
 (defmethod JsonPlotter
   (:init ()
    (setq idx 0)
-
    (setq data-pair-lst nil)
    self)
 
@@ -26,26 +25,35 @@
          (string-data-dump (ijson:encode-json json-data-dump)))
      (ijson:save-string string-data-dump)))
 
-  (:plot (x-lst y-lst)
+  (:plot (x-lst y-lst &key (marker "o") (color "r"))
    (let ((data
            (list (cons :plottype "plot")
                  (cons :x x-lst)
-                 (cons :y y-lst))))
+                 (cons :y y-lst)
+                 (cons :marker marker)
+                 (cons :color color)
+                 )))
      (send self :add-plot data)))
 
-  (:scatter (x-lst y-lst)
+  (:scatter (x-lst y-lst &key (marker "o") (color "r"))
    (let ((data
            (list (cons :plottype "scatter")
                  (cons :x x-lst)
-                 (cons :y y-lst))))
+                 (cons :y y-lst)
+                 (cons :marker marker)
+                 (cons :color color)
+                 )))
      (send self :add-plot data)))
 
-  (:scatter3 (x-lst y-lst z-lst)
+  (:scatter3 (x-lst y-lst z-lst &key (marker "o") (color "r"))
    (let ((data
            (list (cons :plottype "scatter3")
                  (cons :x x-lst)
                  (cons :y y-lst)
-                 (cons :z z-lst))))
+                 (cons :z z-lst)
+                 (cons :marker marker)
+                 (cons :color color)
+                 )))
      (send self :add-plot data)))
 
   (:add-plot (data)
