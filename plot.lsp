@@ -1,7 +1,12 @@
-(unless (find-package 'IPLOT) (make-package 'IPLOT))
-(in-package 'IPLOT)
+(unless (find-package "IPLOT") (make-package "IPLOT"))
+(in-package "IPLOT")
 (export 'JsonPlotter)
-(load "json.lsp")
+(load "package://roseus_mongo/euslisp/json/json-encode.l")
+
+(defun save-json (obj filename) 
+  (let ((out (open filename :direction :output)))
+    (json::encode-element obj out)
+    (close out)))
 
 (defclass JsonPlotter 
   :super propertied-object
@@ -21,9 +26,10 @@
      (unix:system shell-command)))
 
   (:dump ()
-   (let* ((json-data-dump (cons "data" data-pair-lst))
-         (string-data-dump (ijson:encode-json json-data-dump)))
-     (ijson:save-string string-data-dump)))
+   (save-json data-pair-lst "./tmp.json"))
+
+  (:data ()
+   data-pair-lst)
 
   (:plot (x-lst y-lst &key (marker "o") (color "r"))
    (let ((data
@@ -57,8 +63,8 @@
      (send self :add-plot data)))
 
   (:add-plot (data)
-   (push (cons (make-symbol (string idx)) data) data-pair-lst)
-   (setq idx (+ idx 1)))
+   (push (cons (intern (string idx) "KEYWORD") data) data-pair-lst)
+   (setq idx (1+ idx)))
 
   (:clear ()
    (setq data-pair-lst nil))
