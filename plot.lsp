@@ -1,3 +1,6 @@
+(unless (find-package 'IPLOT) (make-package 'IPLOT))
+(in-package 'IPLOT)
+(export 'JsonPlotter)
 (load "json.lsp")
 
 (defclass JsonPlotter 
@@ -19,8 +22,8 @@
 
   (:dump ()
    (let* ((json-data-dump (cons "data" data-pair-lst))
-         (string-data-dump (ishida-json:parse-json json-data-dump)))
-     (ishida-json:save-string string-data-dump)))
+         (string-data-dump (ijson:parse-json json-data-dump)))
+     (ijson:save-string string-data-dump)))
 
   (:plot (x-lst y-lst)
    (let ((data
@@ -54,14 +57,15 @@
 (defun rgen (N)
   (let ((lst nil))
     (dotimes (i N lst)
-      (push (aref (gaussian-random 1) 0) lst))))
+      (push (aref (user::gaussian-random 1) 0) lst))))
 (setq jp (instance JsonPlotter :init))
 (setq N 1000)
 (setq data (list (rgen N) (rgen N) (rgen N)))
-(send jp :scatter3 (rgen N) (rgen N) (rgen N))
-(send jp :show)
+;(send jp :scatter3 (rgen N) (rgen N) (rgen N))
+;(send jp :show)
 
 
+(provide :ishida-plot)
 
   
 

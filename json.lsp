@@ -1,5 +1,7 @@
-(unless (find-package 'ishida-json) (make-package 'ishida-json))
-(in-package 'ishida-json)
+;(unless (find-package "ishida-json") (make-package "ishida-json"))
+(unless (find-package "IJSON") (make-package "IJSON"))
+(in-package "IJSON")
+;(in-package "ishida-json")
 (export 'save-string)
 (export 'parse-json)
 
@@ -53,19 +55,5 @@
     (dotimes (i (length str))
       (write-byte (char str i) out))
     (close out)))
-
-;(setq jdata 
-;     (list 
-;       (cons :debug "on")
-;       (cons :window (list 
-;                        (cons :title "sample-------------")
-;                        (cons :name "main_window")
-;                        (cons :width (list 1 2 3 4))
-;                        (cons :height 500)))))
-;(save-string (alist->json jdata))
-   
-
-
-
 
 
