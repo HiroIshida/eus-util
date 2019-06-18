@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python2
 import sys
 import json
 from numpy import mat, ndarray
@@ -26,6 +26,8 @@ def dispatch(chunk):
         scatter3(chunk)
     if plot_style == "plot":
         plot(chunk)
+    if plot_style == "hist":
+        hist(chunk)
 
 
 def scatter(chunk):
@@ -52,7 +54,13 @@ def plot(chunk):
     color = chunk['color']
     plt.plot(x, y, marker = marker, color = color)
 
+def hist(chunk):
+    x = np.array(chunk['x'])
+    bins = chunk['bins']
+    plt.hist(x, bins)
+
 if __name__=='__main__':
+    print("python called")
     filename = "tmp.json"
     f = open(filename, 'r')
     megachunk = json.load(f)

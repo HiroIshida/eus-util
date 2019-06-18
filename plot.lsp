@@ -2,11 +2,14 @@
 (in-package "IPLOT")
 (export 'JsonPlotter)
 (load "package://roseus_mongo/euslisp/json/json-encode.l")
+;; ref:
+;; https://matplotlib.org/3.1.0/api/pyplot_summary.html
 
 (defun save-json (obj filename) 
   (let ((out (open filename :direction :output)))
     (json::encode-element obj out)
     (close out)))
+
 
 (defclass JsonPlotter 
   :super propertied-object
@@ -61,6 +64,15 @@
                  (cons :color color)
                  )))
      (send self :add-plot data)))
+
+  ;https://matplotlib.org/3.1.0/api/_as_gen/matplotlib.pyplot.hist.html#matplotlib.pyplot.hist
+  (:hist (x-lst &key (bins 10))
+   (let ((data `((:plottype . "hist") 
+                 (:x . ,x-lst) 
+                 (:bins . ,bins)))
+         )
+     (send self :add-plot data)))
+
 
   (:add-plot (data)
    (push (cons (intern (string idx) "KEYWORD") data) data-pair-lst)
