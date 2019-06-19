@@ -24,12 +24,12 @@
   (:show ()
    (send self :dump)
    (let* ((dir (unix:getwd))
-          (pyfile (concatenate string (unix:getwd) "/plotter.py"))
-          (shell-command (concatenate string "python3 " pyfile)))
+          (pyfile "/home/h-ishida/documents/eusutil/plotter.py");; TODO FIX IT!!!!
+          (shell-command (concatenate string "python2 " pyfile)))
      (unix:system shell-command)))
 
   (:dump ()
-   (save-json data-pair-lst "./tmp.json"))
+   (save-json data-pair-lst "/tmp/tmp.json"))
 
   (:data ()
    data-pair-lst)

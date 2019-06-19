@@ -61,7 +61,7 @@ def hist(chunk):
 
 if __name__=='__main__':
     print("python called")
-    filename = "tmp.json"
+    filename = "/tmp/tmp.json"
     f = open(filename, 'r')
     megachunk = json.load(f)
     jsonplot(megachunk)
