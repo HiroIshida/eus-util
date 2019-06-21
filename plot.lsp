@@ -34,46 +34,6 @@
   (:data ()
    data-pair-lst)
 
-  (:plot (x-lst y-lst &key (marker "o") (color "r"))
-   (let ((data
-           (list (cons :plottype "plot")
-                 (cons :x x-lst)
-                 (cons :y y-lst)
-                 (cons :marker marker)
-                 (cons :color color)
-                 )))
-     (send self :add-plot data)))
-
-  (:scatter (x-lst y-lst &key (marker "o") (color "r"))
-   (let ((data
-           (list (cons :plottype "scatter")
-                 (cons :x x-lst)
-                 (cons :y y-lst)
-                 (cons :marker marker)
-                 (cons :color color)
-                 )))
-     (send self :add-plot data)))
-
-  (:scatter3 (x-lst y-lst z-lst &key (marker "o") (color "r"))
-   (let ((data
-           (list (cons :plottype "scatter3")
-                 (cons :x x-lst)
-                 (cons :y y-lst)
-                 (cons :z z-lst)
-                 (cons :marker marker)
-                 (cons :color color)
-                 )))
-     (send self :add-plot data)))
-
-  ;https://matplotlib.org/3.1.0/api/_as_gen/matplotlib.pyplot.hist.html#matplotlib.pyplot.hist
-  (:hist (x-lst &key (bins 10))
-   (let ((data `((:plottype . "hist") 
-                 (:x . ,x-lst) 
-                 (:bins . ,bins)))
-         )
-     (send self :add-plot data)))
-
-
   (:add-plot (data)
    (push (cons (intern (string idx) "KEYWORD") data) data-pair-lst)
    (setq idx (1+ idx)))
@@ -84,7 +44,8 @@
   ;; end methods
   )
 
-  
+(load "method_generated.lsp")
+
 
 
 
