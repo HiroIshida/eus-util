@@ -17,7 +17,8 @@ def gen_jsondata_lst(method_name, args, kwargs):
     arg_lst.extend(list(kwargs.keys()))
     for arg in arg_lst:
         key_lisp = ":" + arg 
-        data.append(["cons", key_lisp, arg])
+        data.append(["cons", key_lisp, 
+            ["to-lst-ifvec", arg]])# since json encode can deal with only list
     return data
 
 def gen_method_def(method_name, args, kwargs):
@@ -47,7 +48,7 @@ plot = gen_method("plot", "x", "y", marker = "\"o\"", color = "\"r\"")
 scatter = gen_method("scatter", "x", "y", marker = "\"o\"", color = "\"r\"")
 scatter3 = gen_method("scatter3", "x", "y", "z", marker = "\"o\"", color = "\"r\"")
 
-f = open("method_generated.lsp", "w")
+f = open("methods_generated.lsp", "w")
 for method in [hist, plot, scatter, scatter3]:
     lisp_code = gen_lispcode(method)
     f.write(lisp_code)

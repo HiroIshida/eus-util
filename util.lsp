@@ -1,0 +1,16 @@
+(defun vec->lst (vec)
+  (let ((lst-ret nil))
+    (dotimes (i (length vec))
+      (push [vec i] lst-ret))
+    (nreverse lst-ret)))
+
+(defun isvec-not-string (something)
+  (if (vectorp something)
+      (not (stringp something))
+      nil))
+
+(defun to-lst-ifvec (something)
+  (if (isvec-not-string something)
+      (vec->lst something)
+      something))
+(to-lst-ifvec '(1 2 3))

@@ -2,6 +2,7 @@
 (in-package "IPLOT")
 (export 'JsonPlotter)
 (load "package://roseus_mongo/euslisp/json/json-encode.l")
+(load "/home/h-ishida/documents/eusutil/util.lsp")
 ;; ref:
 ;; https://matplotlib.org/3.1.0/api/pyplot_summary.html
 
@@ -44,7 +45,7 @@
   ;; end methods
   )
 
-(load "method_generated.lsp")
+(load "methods_generated.lsp")
 
 
 
